@@ -1,33 +1,29 @@
+const isPowerOfTwo = (number) => {
+    if (number < 1) {
+        return false
+    }
+    let dividedNumber = number
+    while (dividedNumber !== 1) {
+        if (dividedNumber % 2 !== 0) {
+            return false
+        }
+        dividedNumber = dividedNumber / 2
+    }
+    return true
+}
+
+// Best case: number = 13 => O(1)
+// Best case: number = 13 => O(log n)
 /**
- * Prime number (numero divisibile solo per 1 e per se stesso)
- * isPrime(9) yeilds false
- * isPrime(5) yeilds true
+ * Worst case: number = 1,125,899,906,842,624 => O(log n)
+ * ci vogliono solo 50 iterazioni del while,
+ * quindi comunque molte meno di n (1,125,899,906,842,624 in questo caso), per questo mettiamo log n.
+ * In generale per capire log n ci basta vedere con dei console log, al crescere di n il numero di iterazioni cresce
+ * molto meno velocemente
  */
 
-// Best case: number = 1 OR number = 2  ==> O(1)
-// Average case: O(n)
-// Worst case: number = 27,277 (big prime number)  ==> O(n)
 
-const _isPrime = (number) => {
-	for (let i = 2; i < number; i++) /* 1 */ {
-		if (number % i === 0 /* n - 2 */) {
-			return false // 1
-		}
-	}
-	return true // 1
-}
-
-// Average case: O(sqrt(n))
-// Worst case: number = 27,277 (big prime number)  ==> O(sqrt(n))
-const isPrime = (number) => {
-	for (let i = 2; i < Math.sqrt(number); i++) {
-		if (number % i === 0) {
-			return false
-		}
-	}
-	return true
-}
-
-console.log(isPrime(5))
-// console.log(isPrime(27277))
-// console.log(isPrime(9))
+console.log(isPowerOfTwo(8))
+console.log(isPowerOfTwo(5))
+console.log(isPowerOfTwo(16))
+console.log(isPowerOfTwo(13))
