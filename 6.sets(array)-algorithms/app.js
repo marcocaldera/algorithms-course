@@ -1,37 +1,36 @@
-// Permutation without repetition (n!)
+// Permuation with repetition
 
-const getPermutation = (options) => {
+function getPermuations(options, length) {
     const permuations = []
-    console.log("FUNCTION START")
-    console.log(options)
 
-    if (options.length === 1) {
-        return [options];
+    if (length === 1) {
+        // return [[1], [2], [3]]
+        return options.map(option => [option])
     }
 
-    const partialPermutations = getPermutation(options.slice(1)) // escludo il primo elemento dell'array
-    console.log("AFTER RECURSIVE STEP")
-    console.log(partialPermutations)
+    const partialPermuations = getPermuations(options, length - 1) // [[1], [2], [3]]
 
-    const firstOption = options[0]
-    console.log('FIRST OPTION: ', firstOption)
-
-    for (let i = 0; i < partialPermutations.length; i++) {
-        const partialPermuation = partialPermutations[i]
-        console.log('OUTER LOOP ', partialPermuation)
-        for (let j = 0; j <= partialPermuation.length; j++) {
-            const permutationInFront = partialPermuation.slice(0, j)
-            const permutationAfter = partialPermuation.slice(j)
-            permuations.push(permutationInFront.concat([firstOption], permutationAfter))
+    for (const option of options) { // [1, 2, 3]
+        for (const existingPermuation of partialPermuations) { // [[1], [2], [3]]
+            permuations.push([option].concat(existingPermuation))
+            // [1,1] [1,2] [1,3]
+            // nuova iterazione loop esterno: [2,1] [2,2] [2,3]
+            // etc.
         }
     }
 
-    return permuations
+    return permuations // [1,1] [1,2] [1,3] [2,1] [2,2] [2,3], etc. viene restituito alla chiama getPermutations precedente e così via
 }
 
-const totoListItems = ['Mindfullnes', 'My affirmation', 'Work', 'Thesis']
+const digits = [1, 2, 3]
+const resultLenght = 3
 
-console.log(getPermutation(totoListItems))
+console.log(getPermuations(digits, resultLenght))
 
-// La complessità fattoriale è orribile, peggio di O(2^n)
-// Time complexity: O(n!) => 4 * 3 * 2 * 1 = 24
+// Time Complexity: O(n^r) => n is the number of options, r is the length
+
+// La complessità dipende chiaramente da tutti e due i parametri in input (quindi li dobbiamo considerare entrambi)
+// Capiamo questo perché indipendentemente dal parametro che cambia la complessità aumenta comunque tantissimo
+
+// La complessità è O(n^r) perché se abbiamo 3^3 abbiamo 27 permutazioni possibili
+// Se abbiamo options=n=4 e lenght=r=2 abbiamo 4^2=16 permutazioni possibili
