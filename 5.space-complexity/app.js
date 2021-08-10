@@ -22,7 +22,7 @@ function factRecursive(number) {
   return number * factRecursive(number - 1); // 1
 }
 
-// Space Complexity: O(n)
+// Space Complexity: O(n) beacuse in each iteration we store the function call factRecursive (and the all remain open until the end is reached)
 
 // ------------------------
 // 3) Linear Search
@@ -30,9 +30,10 @@ function factRecursive(number) {
 
 function linearSearch(arr, element, comparatorFn) {
   let index = 0;
-  for (const item of arr) { // ad ogni iterazione viene creata una nuova variabile (quindi no permanente)
+  for (const item of arr) {
+    // ad ogni iterazione viene creata una nuova variabile (quindi no permanente)
     if (
-      typeof element === 'object' &&
+      typeof element === "object" &&
       element !== null &&
       comparatorFn(element, item)
     ) {
@@ -51,7 +52,8 @@ function linearSearch(arr, element, comparatorFn) {
 // 4) Binary Search
 // ------------------------
 
-function binarySearch(sortedArr, element) { // metto due elementi in memoria
+function binarySearch(sortedArr, element) {
+  // metto due elementi in memoria
   let startIndex = 0; // metto un nuovo elemento in memoria
   let endIndex = sortedArr.length - 1; // metto .. etc.
 
@@ -140,7 +142,7 @@ function quickSort(arr) {
   );
 }
 
-// Space Complexity: O(n) 
+// Space Complexity: O(n)
 // Anche qui O(n) perché abbiamo nested function call e le chiamate iniziali (con le relative variabili)
 // rimangono attive fino alla fine.
 // Non è O(n^2) perché per chiamare riga 136 devono essersi con concluse tutte le nested fun call di riga 135 (e anche quindi le varie variabili sarebbero cancellate)
